@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from datetime import date, time
+from datetime import date, time, datetime, timedelta
 from typing import List
 
 
@@ -18,15 +18,15 @@ class Task:
 
     def mark_complete(self) -> None:
         """Mark the task as completed."""
-        pass
+        self.completed = True
 
-    def get_datetime(self):
+    def get_datetime(self) -> datetime:
         """Combine due date and due time into one datetime value."""
-        pass
+        return datetime.combine(self.due_date, self.due_time)
 
     def is_recurring(self) -> bool:
         """Return whether the task repeats on a schedule."""
-        pass
+        return bool(self.frequency and self.frequency.lower() != "none")
 
 
 @dataclass
@@ -38,11 +38,11 @@ class Pet:
 
     def add_task(self, task: Task) -> None:
         """Add a task for this pet."""
-        pass
+        self.tasks.append(task)
 
     def list_tasks(self) -> List[Task]:
         """Return the list of tasks for this pet."""
-        pass
+        return self.tasks
 
 
 class Owner:
@@ -53,15 +53,18 @@ class Owner:
 
     def add_pet(self, pet: Pet) -> None:
         """Add a pet for the owner."""
-        pass
+        self.pets.append(pet)
 
     def list_pets(self) -> List[Pet]:
         """Return the owner's pets."""
-        pass
+        return self.pets
 
     def get_all_tasks(self) -> List[Task]:
         """Collect all tasks across the owner's pets."""
-        pass
+        all_tasks: List[Task] = []
+        for pet in self.pets:
+            all_tasks.extend(pet.list_tasks())
+        return all_tasks
 
 
 class Scheduler:
@@ -71,24 +74,36 @@ class Scheduler:
 
     def get_all_tasks(self) -> List[Task]:
         """Return all tasks available for scheduling."""
-        pass
+        return self.owner.get_all_tasks()
 
     def sort_tasks_by_time(self) -> List[Task]:
-        """Sort tasks by due time."""
-        pass
+        """Sort tasks by due date and time."""
+        return sorted(self.get_all_tasks(), key=lambda task: task.get_datetime())
 
     def filter_tasks_by_status(self, completed: bool) -> List[Task]:
         """Filter tasks by completion status."""
-        pass
+        return [task for task in self.get_all_tasks() if task.completed == completed]
 
     def filter_tasks_by_pet(self, pet: Pet) -> List[Task]:
         """Filter tasks for a specific pet."""
-        pass
+        return pet.list_tasks()
 
     def detect_conflicts(self) -> List[Task]:
         """Detect conflicting tasks in the schedule."""
-        pass
+        tasks = self.sort_tasks_by_time()
+        conflicting_tasks: List[Task] = []
+        for index in range(len(tasks) - 1):
+            current = tasks[index]
+            next_task = tasks[index + 1]
+            current_end = current.get_datetime() + timedelta(minutes=current.duration_minutes)
+            next_start = next_task.get_datetime()
+            if current_end > next_start and current.get_datetime().date() == next_start.date():
+                if current not in conflicting_tasks:
+                    conflicting_tasks.append(current)
+                if next_task not in conflicting_tasks:
+                    conflicting_tasks.append(next_task)
+        return conflicting_tasks
 
     def build_daily_schedule(self) -> List[Task]:
         """Build a sorted daily schedule across all pets."""
-        pass
+        return self.sort_tasks_by_time()

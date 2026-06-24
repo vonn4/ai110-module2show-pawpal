@@ -76,6 +76,24 @@ Reviewed class names, attributes, and methods against the UML before implementat
 
 ---
 
+## Agent Workflow (SF7)
+
+> Document your experience using an AI agent (e.g., Cursor Agent, Claude, Copilot) to make multi-step changes autonomously.
+
+**What task did you give the agent?**
+
+Skeleton review and refinement.
+
+**What did the agent do?**
+
+Reviewed `pawpal_system.py` and `diagrams/uml_draft.mmd`, then suggested adding task duration and a schedule-building method.
+
+**What did you have to verify or fix manually?**
+
+Verified the suggested changes and accepted `duration_minutes` and `build_daily_schedule()` while rejecting extra filters and sorting methods to keep the design simple.
+
+---
+
 ## Prompt Comparison (SF11)
 
 > Compare two different prompts (or two different models) on the same task.

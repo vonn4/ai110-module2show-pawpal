@@ -11,12 +11,17 @@ class Task:
     description: str
     due_date: date
     due_time: time
+    duration_minutes: int = 30
     completed: bool = False
     frequency: str = "none"
     priority: str = "medium"
 
     def mark_complete(self) -> None:
         """Mark the task as completed."""
+        pass
+
+    def get_datetime(self):
+        """Combine due date and due time into one datetime value."""
         pass
 
     def is_recurring(self) -> bool:
@@ -82,4 +87,8 @@ class Scheduler:
 
     def detect_conflicts(self) -> List[Task]:
         """Detect conflicting tasks in the schedule."""
+        pass
+
+    def build_daily_schedule(self) -> List[Task]:
+        """Build a sorted daily schedule across all pets."""
         pass

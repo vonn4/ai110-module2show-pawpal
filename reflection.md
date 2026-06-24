@@ -8,6 +8,8 @@
 
 **a. Initial design**
 
+I designed four classes: Owner, Pet, Task, and Scheduler. Owner stores information about the pet owner and manages multiple pets. Pet stores information about an individual pet and its tasks. Task represents a specific pet care activity with scheduling information and completion status. Scheduler gathers tasks across multiple pets and provides sorting, filtering, and conflict detection functionality.
+
 - Briefly describe your initial UML design.
 - What classes did you include, and what responsibilities did you assign to each?
 
@@ -15,6 +17,8 @@
 
 - Did your design change during implementation?
 - If yes, describe at least one change and why you made it.
+
+After reviewing the design with AI, I added duration_minutes to Task because it makes conflict detection more meaningful. I also added build_daily_schedule() to Scheduler to give the scheduler a clear planning role instead of only separate helper methods. I did not add every suggested method because I wanted to keep the design beginner-friendly and focused on the rubric.
 
 ---
 

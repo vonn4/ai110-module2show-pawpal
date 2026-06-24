@@ -17,11 +17,13 @@ classDiagram
         +String description
         +Date due_date
         +Time due_time
+        +int duration_minutes
         +bool completed
         +String frequency
         +String priority
         +mark_complete()
         +is_recurring()
+        +get_datetime()
     }
     class Scheduler {
         +Owner owner
@@ -30,6 +32,7 @@ classDiagram
         +filter_tasks_by_status()
         +filter_tasks_by_pet()
         +detect_conflicts()
+        +build_daily_schedule()
     }
 
     Owner "1" o-- "*" Pet : owns

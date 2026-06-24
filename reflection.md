@@ -2,6 +2,10 @@
 
 ## 1. System Design
 
+- Add and manage pet care tasks, including duration and priority.
+- Generate a daily care plan that fits available time and owner constraints.
+- Review the schedule with clear task order and reasoning for choices.
+
 **a. Initial design**
 
 - Briefly describe your initial UML design.
